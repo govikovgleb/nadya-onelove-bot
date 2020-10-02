@@ -16,7 +16,7 @@ reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("\u2764", callback_da
 def start(update, context):        
     context.bot.send_message(chat_id=update.effective_chat.id, text="I love you!", reply_markup=reply_markup)
 def btn(update, context):
-    context.bot.answer_callback_query(callback_query_id=update.callback_query.id, text="You are beautiful!", show_alert=True)
+    context.bot.answer_callback_query(callback_query_id=update.callback_query.id, text="You are beautiful!")
 def mirror(update, context):
     print(update.message)
     if update.message.text != '/start':       
