@@ -10,7 +10,7 @@ import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 # 
 def start(update, context):
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("Test btn", callback_data='1')]]) 
+    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("\u2764", callback_data='1')]]) 
     context.bot.send_message(chat_id=update.effective_chat.id, text="I love you!", reply_markup=reply_markup)
 
 start_handler = CommandHandler('start', start)
