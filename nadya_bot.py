@@ -14,7 +14,7 @@ def start(update, context):
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("\u2764 W-o-W", callback_data='like')]]) 
     context.bot.send_message(chat_id=update.effective_chat.id, text="I love you!", reply_markup=reply_markup)
 def btn(update, context):
-    context.bot.answer_callback_query(callback_query_id=update.callback_data.id, text="You are beautiful!", show_alert=True)
+    context.bot.answer_callback_query(callback_query_id=update.callback_query.id, text="You are beautiful!", show_alert=True)
 
 start_handler = CommandHandler('start', start)
 inline_btn_handler = CallbackQueryHandler(btn)
