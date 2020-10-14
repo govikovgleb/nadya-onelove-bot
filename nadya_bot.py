@@ -16,8 +16,10 @@ heart = "\u2764"
 array_counter = []
 counter = 1
 reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(heart, callback_data='1')]])
+
 def start(update, context):        
     context.bot.send_message(chat_id=update.effective_chat.id, text="I love you!", reply_markup=reply_markup)
+
 def btn(update, context):
     msg_id = update.callback_query.message.message_id
     if not array_counter[msg_id]:
@@ -28,6 +30,7 @@ def btn(update, context):
     context.bot.edit_message_reply_markup(chat_id=update.effective_chat.id, message_id=msg_id, reply_markup=counter_RM)    
     context.bot.answer_callback_query(callback_query_id=update.callback_query.id, text="You are beautiful!")
     array_counter[msg_id] = array_counter[msg_id] + 1
+
 def mirror(update, context):
     if update.message.text != '/start':       
         context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text, reply_markup=reply_markup)
