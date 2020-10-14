@@ -24,5 +24,5 @@ mirror_message = MessageHandler(Filters.photo, addHeart, channel_post_updates=Tr
 inline_btn_handler = CallbackQueryHandler(btn)
 dispatcher.add_handler(inline_btn_handler)
 dispatcher.add_handler(mirror_message)
-
+# PUK
 updater.start_polling()
