@@ -4,6 +4,7 @@ from telegram.ext import CallbackQueryHandler
 from telegram.ext import Filters
 from telegram import InlineKeyboardButton
 from telegram import InlineKeyboardMarkup
+from messages import rnd_msg
 updater = Updater(token='1145342159:AAEwfxOCLaQleZtlsJ4X29KE_37MP_qzPSU', use_context=True)
 dispatcher = updater.dispatcher
 # логирование
@@ -14,7 +15,7 @@ heart = "\u2764"
 reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(heart, callback_data='1')]])
 
 def btn(update, context):       
-    context.bot.answer_callback_query(callback_query_id=update.callback_query.id, text="You are beautiful!")    
+    context.bot.answer_callback_query(callback_query_id=update.callback_query.id, text=rnd_msg.get_msg)    
 
 def addHeart(update, context):
     print(update.channel_post)
