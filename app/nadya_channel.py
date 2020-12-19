@@ -20,11 +20,11 @@ def get_msggen_by_user_id(user_id):
 
 def btn(update, context):
     callback_query = update.callback_query
-    message_id = callback_query.message.id
+    # message_id = callback_query.message.id
     user = callback_query.from_user
     user_id = user.id
     logging.info(f'Received click on button from {user.name} ({user_id})')
-    logging.info(f'Message id {message_id}')
+    # logging.info(f'Message id {message_id}')
     # increase_likes_count_by_post(message_id)    
     user_ckick = get_msggen_by_user_id(user_id)
     message = user_ckick.get_msg()
