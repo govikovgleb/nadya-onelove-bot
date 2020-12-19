@@ -1,14 +1,9 @@
-# логирование
-import logging
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import CallbackQueryHandler, Filters, MessageHandler, Updater
 
 from app.messages import MessagesGenerator
-
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
+import logging
 
 HEART_SYMBOL = "❤️"
 reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(HEART_SYMBOL, callback_data="1")]])
@@ -23,7 +18,9 @@ def get_msggen_by_user_id(user_id):
 
 def btn(update, context):
     callback_query = update.callback_query
-    user_id = callback_query.from_user.id
+    user = callback_query.from_user
+    user_id = user.id
+    logging.info(f'Received click on button from {user.name} ({user_id})')
     user_ckick = get_msggen_by_user_id(user_id)
     message = user_ckick.get_msg()
     context.bot.answer_callback_query(
@@ -32,7 +29,6 @@ def btn(update, context):
 
 
 def addHeart(update, context):
-    print(update.channel_post)
     context.bot.edit_message_reply_markup(
         chat_id=update.effective_chat.id,
         message_id=update.channel_post.message_id,
