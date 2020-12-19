@@ -6,12 +6,11 @@ class MessagesGenerator:
         "You look what a sweet pie here!"
     ]
     
-    def __init__(self, user = None):
+    def __init__(self):
         self.last_message = None
-        self.user = user
 
     def __repr__(self):
-        res = f'{self.__class__.__name__}({self.user})'
+        res = f'{self.__class__.__name__}({id(self)})'
         return res
 
     def get_msg(self):
