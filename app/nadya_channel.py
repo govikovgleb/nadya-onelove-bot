@@ -1,28 +1,24 @@
-from telegram.ext import Updater
-from telegram.ext import MessageHandler
-from telegram.ext import CallbackQueryHandler
-from telegram.ext import Filters
-from telegram import InlineKeyboardButton
-from telegram import InlineKeyboardMarkup
-
-from messages import MessagesGenerator
-
-updater = Updater(
-    token="1145342159:AAEwfxOCLaQleZtlsJ4X29KE_37MP_qzPSU", use_context=True
-)
-dispatcher = updater.dispatcher
 # логирование
 import logging
+
+import json
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import CallbackQueryHandler, Filters, MessageHandler, Updater
+
+from app.messages import MessagesGenerator
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 
-heart = "\u2764"
-reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(heart, callback_data="1")]])
+HEART_SYMBOL = "❤️"
+reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(HEART_SYMBOL, callback_data="1")]])
 
 
 def btn(update, context):
+    # print('update', update)#.message.from_user.id)
+    print('update', update.from)
+    # print('user_id', update.message.from_user.id)
     context.bot.answer_callback_query(
         callback_query_id=update.callback_query.id, text="Hoooooiiisheee"
     )
@@ -37,9 +33,14 @@ def addHeart(update, context):
     )
 
 
-mirror_message = MessageHandler(Filters.photo, addHeart, channel_post_updates=True)
-inline_btn_handler = CallbackQueryHandler(btn)
-dispatcher.add_handler(inline_btn_handler)
-dispatcher.add_handler(mirror_message)
-# PUK
-updater.start_polling()
+def start(token):
+    updater = Updater(
+        token=token, use_context=True
+    )
+    dispatcher = updater.dispatcher
+    mirror_message = MessageHandler(Filters.photo, addHeart, channel_post_updates=True)
+    inline_btn_handler = CallbackQueryHandler(btn)
+    dispatcher.add_handler(inline_btn_handler)
+    dispatcher.add_handler(mirror_message)
+    # PUK
+    updater.start_polling()
