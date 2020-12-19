@@ -4,6 +4,7 @@ from telegram.ext import CallbackQueryHandler, Filters, MessageHandler, Updater
 
 from app.messages import MessagesGenerator
 import logging
+import os
 
 HEART_SYMBOL = "❤️"
 reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(HEART_SYMBOL, callback_data="1")]])
@@ -40,10 +41,17 @@ def start(token):
     updater = Updater(
         token=token, use_context=True
     )
+    TOKEN = "1145342159:AAEwfxOCLaQleZtlsJ4X29KE_37MP_qzPSU"
+    PORT = int(os.environ.get('PORT', '8443'))
     dispatcher = updater.dispatcher
     mirror_message = MessageHandler(Filters.photo, addHeart, channel_post_updates=True)
     inline_btn_handler = CallbackQueryHandler(btn)
     dispatcher.add_handler(inline_btn_handler)
     dispatcher.add_handler(mirror_message)
     # PUK
-    updater.start_polling()
+    # updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                            port=PORT,
+                            url_path=TOKEN)
+    updater.bot.set_webhook("https://nadya-onelove-bot.herokuapp.com/" + TOKEN)
+    updater.idle()
