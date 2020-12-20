@@ -3,7 +3,11 @@ class MessagesGenerator:
     messages = [
         "You are beautiful!",
         "Words can’t explain what a wonderful person you are.",
-        "You look what a sweet pie here!"
+        "You look what a sweet pie here!",
+        "Bark!",
+        "WOOF!",
+        "Meow :3",
+        "Thanks, sweetheart"
     ]
     
     def __init__(self):
