@@ -7,7 +7,7 @@ from app.storage import get_likes_count_by_post, increase_likes_count_by_post
 import logging
 import os
 
-HEART_SYMBOL = "❤️"
+HEART_SYMBOL = "\u2764"
 reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(HEART_SYMBOL)]])
 msggen_by_user_id = {}
 
