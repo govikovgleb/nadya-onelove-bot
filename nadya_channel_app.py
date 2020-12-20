@@ -16,7 +16,7 @@ parser.add_argument(
 args = vars(parser.parse_args())
 
 # start
-# init_data_path(Path("data/data.json"))
+init_data_path(Path("data/data.json"))
 use_webhooks = args.get("use_webhooks") or False
 init_logger()
 logging.info("Start Nadya Channel Bot")

@@ -19,12 +19,14 @@ def get_msggen_by_user_id(user_id):
     return gen
 
 def btn(update, context):
+    print('btn call')
     callback_query = update.callback_query
-    # message_id = callback_query.message.id
+    message = callback_query.message
+    message_id = callback_query.message.message_id
+    logging.info(f'Message id {message_id}')
     user = callback_query.from_user
     user_id = user.id
     logging.info(f'Received click on button from {user.name} ({user_id})')
-    # logging.info(f'Message id {message_id}')
     # increase_likes_count_by_post(message_id)    
     user_ckick = get_msggen_by_user_id(user_id)
     message = user_ckick.get_msg()
@@ -55,10 +57,12 @@ def start(token, use_webhooks:False):
     # PUK
     # updater.start_polling()
     if use_webhooks:
+        print('webhooks is using')
         updater.start_webhook(listen="0.0.0.0",
                                 port=PORT,
                                 url_path=TOKEN)
         updater.bot.set_webhook("https://nadya-onelove-bot.herokuapp.com/" + TOKEN)
         updater.idle()
     else:
+        print('webhooks isn"t using')
         updater.start_polling()
