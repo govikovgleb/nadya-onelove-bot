@@ -30,6 +30,7 @@ def btn(update, context):
     # increase_likes_count_by_post(message_id)    
     user_ckick = get_msggen_by_user_id(user_id)
     message = user_ckick.get_msg()
+    logging.info(f'Message text {message}')
     context.bot.answer_callback_query(
         callback_query_id=callback_query.id, text=message
     )
@@ -45,7 +46,7 @@ def addHeart(update, context):
 
 def start(token, use_webhooks:False):
     updater = Updater(
-        token=token, use_context=True
+        token=token, use_context=True, request_kwargs={'read_timeout': 10, 'connect_timeout': 12}
     )
     TOKEN = token
     PORT = int(os.environ.get('PORT', '8443'))
