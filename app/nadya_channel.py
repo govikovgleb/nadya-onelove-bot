@@ -32,9 +32,9 @@ def heart_lvl(count):
 
 def make_new_reply_markup(message_id):
     count = get_likes_count_by_post(message_id)
-    heart_lvl(int(count))
+    new_heart = heart_lvl(int(count))
     if heart_lvl:
-        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(heart_lvl, callback_data=1)]])
+        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(new_heart, callback_data=1)]])
         return reply_markup
     else:
         return False
