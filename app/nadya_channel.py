@@ -46,7 +46,7 @@ def btn(update, context):
     callback_query = update.callback_query
     message = callback_query.message
     message_id = message.message_id
-    actual_replay_markup = message.reply_markup.inline_keyboard[0][0].text
+    actual_replay_markup = message.reply_markup.inline_keyboard[0][0].text # ERROR
     logging.info(f'Message id {message_id}')
     user = callback_query.from_user
     user_id = user.id
