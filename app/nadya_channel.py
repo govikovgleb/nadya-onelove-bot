@@ -77,7 +77,7 @@ def addHeart(update, context):
 
 def start(token, use_webhooks:False):
     updater = Updater(
-        token=token, use_context=True
+        token=token, use_context=True, request_kwargs={'read_timeout': 10, 'connect_timeout': 12}
     )
     TOKEN = token
     PORT = int(os.environ.get('PORT', '8443'))
