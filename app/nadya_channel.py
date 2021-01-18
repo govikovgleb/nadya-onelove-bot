@@ -24,9 +24,9 @@ def get_msggen_by_user_id(user_id):
 def heart_lvl(count):
     return {
         0<=count<10: 0,
-        10<=count<20: ':orange_heart:',
-        20<=count<35: ':heart:',
-        35<=count<50: ':sparkling_heart:',
+        10<=count<20: '🧡',
+        20<=count<35: '❤️',
+        35<=count<50: '💖',
         50<=count: 0
     }[True]
 
