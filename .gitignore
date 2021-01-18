@@ -3,5 +3,5 @@ debug.log
 .vscode
 __pycache__
 venv
-data
+data/test_data.json
 test.py
