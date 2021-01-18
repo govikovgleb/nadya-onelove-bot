@@ -7,10 +7,10 @@ from app.storage import get_likes_count_by_post, increase_likes_count_by_post
 import logging
 import os
 
-HEART_SYMBOL = ":yellow_heart:"
-NICE_HEART_SYMBOL = ":orange_heart:"
-AWESAME_HEART_SYMBOL = ":heart:"
-BRILIANT_HEART_SYMBOL = ":sparkling_heart"
+HEART_SYMBOL = "💛"
+NICE_HEART_SYMBOL = "🧡"
+AWESAME_HEART_SYMBOL = "❤️"
+BRILIANT_HEART_SYMBOL = "💖"
 reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(HEART_SYMBOL, callback_data=1)]])
 msggen_by_user_id = {}
 
