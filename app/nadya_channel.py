@@ -51,7 +51,9 @@ def btn(update, context):
     increase_likes_count_by_post(message_id) # write counter to json 
     
     new_reply_markup = make_new_reply_markup(message_id)
+    logging.info(f'new_reply_markup {new_reply_markup}')
     if new_reply_markup:
+        logging.info(f'done')
         message.edit_reply_markup(
         reply_markup=new_reply_markup
     )
