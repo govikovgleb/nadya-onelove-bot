@@ -7,6 +7,8 @@ class MessagesGenerator:
         "WOOF!",
         "Meow :3",
         "Thanks, sweetheart",
+        "Oh, your finger is so soft!",
+        "It makes me feel so good!"        
     ]
     
     def __init__(self):

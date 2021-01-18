@@ -7,7 +7,10 @@ from app.storage import get_likes_count_by_post, increase_likes_count_by_post
 import logging
 import os
 
-HEART_SYMBOL = "❤️"
+HEART_SYMBOL = ":yellow_heart:"
+NICE_HEART_SYMBOL = ":orange_heart:"
+AWESAME_HEART_SYMBOL = ":heart:"
+BRILIANT_HEART_SYMBOL = ":sparkling_heart"
 reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(HEART_SYMBOL, callback_data=1)]])
 msggen_by_user_id = {}
 
@@ -18,20 +21,44 @@ def get_msggen_by_user_id(user_id):
        msggen_by_user_id[user_id] = gen
     return gen
 
+def heart_lvl(count):
+    return {
+        0<=count<10: 0,
+        10<=count<20: ':orange_heart:',
+        20<=count<35: ':heart:',
+        35<=count<50: ':sparkling_heart:',
+        50<=count: 0
+    }[True]
+
+def make_new_reply_markup(message_id):
+    count = get_likes_count_by_post(message_id)
+    heart_lvl(int(count))
+    if heart_lvl:
+        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(heart_lvl, callback_data=1)]])
+        return reply_markup
+    else:
+        return False
+
 def btn(update, context):
     print('btn call')
     callback_query = update.callback_query
     message = callback_query.message
-    message_id = callback_query.message.message_id
+    message_id = message.message_id
     logging.info(f'Message id {message_id}')
     user = callback_query.from_user
     user_id = user.id
     logging.info(f'Received click on button from {user.name} ({user_id})')
-    # increase_likes_count_by_post(message_id)    
+    increase_likes_count_by_post(message_id) # write counter to json 
+    
+    new_reply_markup = make_new_reply_markup(message_id)
+    if new_reply_markup:
+        message.edit_reply_markup(
+        reply_markup=new_reply_markup
+    )
     user_ckick = get_msggen_by_user_id(user_id)
-    message = user_ckick.get_msg()
+    msg = user_ckick.get_msg()    
     context.bot.answer_callback_query(
-        callback_query_id=callback_query.id, text=message
+        callback_query_id=callback_query.id, text=msg
     )
 
 
