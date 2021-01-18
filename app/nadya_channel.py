@@ -32,6 +32,8 @@ def heart_lvl(count):
 
 def make_new_reply_markup(message_id, actual_replay_markup):
     count = get_likes_count_by_post(message_id)
+    logging.info(f'count {count}')
+    logging.info(f'actual_replay_markup {actual_replay_markup}')
     new_heart = heart_lvl(int(count))
     if new_heart and (new_heart != actual_replay_markup):
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(new_heart, callback_data=1)]])
