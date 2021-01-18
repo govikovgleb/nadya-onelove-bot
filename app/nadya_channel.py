@@ -23,17 +23,17 @@ def get_msggen_by_user_id(user_id):
 
 def heart_lvl(count):
     return {
-        0<=count<10: 0,
+        count<10: 0,
         10<=count<20: '🧡',
         20<=count<35: '❤️',
         35<=count<50: '💖',
         50<=count: 0
     }[True]
 
-def make_new_reply_markup(message_id):
+def make_new_reply_markup(message_id, actual_replay_markup):
     count = get_likes_count_by_post(message_id)
     new_heart = heart_lvl(int(count))
-    if new_heart:
+    if new_heart and (new_heart != actual_replay_markup):
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(new_heart, callback_data=1)]])
         return reply_markup
     else:
@@ -44,13 +44,14 @@ def btn(update, context):
     callback_query = update.callback_query
     message = callback_query.message
     message_id = message.message_id
+    actual_replay_markup = message.reply_markup
     logging.info(f'Message id {message_id}')
     user = callback_query.from_user
     user_id = user.id
     logging.info(f'Received click on button from {user.name} ({user_id})')
     increase_likes_count_by_post(message_id) # write counter to json 
     
-    new_reply_markup = make_new_reply_markup(message_id)
+    new_reply_markup = make_new_reply_markup(message_id, actual_replay_markup)
     logging.info(f'new_reply_markup {new_reply_markup}')
     if new_reply_markup:
         logging.info(f'done')
