@@ -24,10 +24,10 @@ def get_msggen_by_user_id(user_id):
 def heart_lvl(count):
     return {
         count<10: 0,
-        10<=count<20: '🧡',
-        20<=count<35: '❤️',
-        35<=count<50: '💖',
-        50<=count: 0
+        count==20: '🧡',
+        count==35: '❤️',
+        count==50: '💖',
+        50<count: 0
     }[True]
 
 def make_new_reply_markup(message_id, actual_replay_markup):
@@ -35,7 +35,7 @@ def make_new_reply_markup(message_id, actual_replay_markup):
     logging.info(f'count {count}')
     logging.info(f'actual_replay_markup {actual_replay_markup}')
     new_heart = heart_lvl(int(count))
-    if new_heart and (new_heart != actual_replay_markup):
+    if new_heart:
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(new_heart, callback_data=1)]])
         return reply_markup
     else:
