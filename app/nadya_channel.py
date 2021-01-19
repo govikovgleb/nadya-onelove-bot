@@ -33,10 +33,9 @@ def heart_lvl(count):
         return False
     
 
-def make_new_reply_markup(message_id, actual_replay_markup):
+def make_new_reply_markup(message_id):
     count = get_likes_count_by_post(message_id)
-    logging.info(f'count {count}')
-    logging.info(f'actual_replay_markup {actual_replay_markup}')
+    logging.info(f'count {count}')    
     new_heart = heart_lvl(int(count))
     if new_heart:
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(new_heart, callback_data=1)]])
@@ -49,14 +48,14 @@ def btn(update, context):
     callback_query = update.callback_query
     message = callback_query.message
     message_id = message.message_id
-    actual_replay_markup = message.reply_markup.inline_keyboard[0][0].text # ERROR
+    
     logging.info(f'Message id {message_id}')
     user = callback_query.from_user
     user_id = user.id
     logging.info(f'Received click on button from {user.name} ({user_id})')
     increase_likes_count_by_post(message_id) # write counter to json 
     
-    new_reply_markup = make_new_reply_markup(message_id, actual_replay_markup)
+    new_reply_markup = make_new_reply_markup(message_id)
     logging.info(f'new_reply_markup {new_reply_markup}')
     if new_reply_markup:
         logging.info(f'done')
