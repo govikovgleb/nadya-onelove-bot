@@ -22,13 +22,16 @@ def get_msggen_by_user_id(user_id):
     return gen
 
 def heart_lvl(count):
-    return {
-        count<10: 0,
-        count==20: '🧡',
-        count==35: '❤️',
-        count==50: '💖',
-        50<count: 0
-    }[True]
+    lvl = {        
+        count==15: '🧡',
+        count==30: '❤️',
+        count==50: '💖',        
+    }
+    if True in lvl:
+        return lvl[True]
+    else:
+        return False
+    
 
 def make_new_reply_markup(message_id, actual_replay_markup):
     count = get_likes_count_by_post(message_id)
